@@ -19,7 +19,7 @@ A Python tool to automatically generate Quizlet flashcards from various input so
 
 2. **Clone and set up the project**:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/douggkim/quizlet-generation
    cd quizlet-auto-generation
    uv sync
    ```
