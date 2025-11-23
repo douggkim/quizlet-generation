@@ -1,0 +1,17 @@
+[project]
+name = "quizlet-auto-generation"
+version = "0.1.0"
+description = "A tool to generate Quizlet cards from various input sources using Gemini AI"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "google-api-python-client>=2.187.0",
+    "google-auth-httplib2>=0.2.1",
+    "google-auth-oauthlib>=1.2.3",
+    "google-genai>=1.52.0",
+    "pandas>=2.3.3",
+    "python-dotenv>=1.2.1",
+]
+
+[project.scripts]
+quizlet-gen = "main:main"
