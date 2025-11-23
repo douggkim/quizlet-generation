@@ -5,6 +5,7 @@ Quizlet Card Generator - Generate Quizlet cards from various input sources using
 
 import argparse
 import sys
+from datetime import datetime
 from typing import Dict, List
 
 from config.prompts import PromptTemplates
@@ -52,8 +53,8 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--output",
         type=str,
-        default="quizlet_cards.csv",
-        help="Output CSV file path (default: quizlet_cards.csv)",
+        default=None,
+        help="Output CSV file path (default: auto-generated based on prompt type and timestamp)",
     )
 
     # Optional arguments
@@ -100,6 +101,13 @@ def create_parser() -> argparse.ArgumentParser:
     )
 
     return parser
+
+
+def generate_default_filename(prompt_type: str) -> str:
+    """Generate a default filename based on prompt type and current timestamp."""
+    now = datetime.now()
+    timestamp = now.strftime("%Y-%m-%d_%H-%M")
+    return f"{prompt_type}_{timestamp}.csv"
 
 
 def load_input_data(args, settings: Settings) -> List[str]:
@@ -260,6 +268,10 @@ def main():
         if args.info:
             show_input_info(args, settings)
             return
+
+        # Generate default filename if output not specified
+        if args.output is None:
+            args.output = generate_default_filename(args.prompt_type)
 
         # Validate inputs
         InputValidator.validate_column_name(args.column)
